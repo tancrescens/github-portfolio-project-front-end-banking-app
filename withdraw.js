@@ -24,23 +24,23 @@ function Withdraw() {
         body={
           <form>
             <br />
-            <div class="mb-3">
-              <label class="form-label">Balance:</label>
+            <div className="mb-3">
+              <label className="form-label">Balance:</label>
               <p>{balanceState}</p>
             </div>
             {/*  */}
             <br />
-            <div class="mb-3">
-              <label for="withdrawInput1" class="form-label">
+            <div className="mb-3">
+              <label for="withdrawInput1" className="form-label">
                 Withdraw Amount:
               </label>
               <input
                 type="numbers"
-                class="form-control"
+                className="form-control"
                 id="withdrawInput1"
                 aria-describedby="withdrawHelp"
               />
-              <div id="withdrawHelp" class="form-text">
+              <div id="withdrawHelp" className="form-text">
                 Please input <strong>numbers</strong> with
                 <strong> 2 decimals</strong> only e.g 50.10
               </div>
@@ -48,7 +48,7 @@ function Withdraw() {
             {/*  */}
             <button
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
               onClick={updateBalance}
             >
               Submit
