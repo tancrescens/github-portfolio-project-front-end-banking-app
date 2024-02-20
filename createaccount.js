@@ -3,10 +3,16 @@ function CreateAccount() {
   const [status, setStatus] = React.useState("");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [validEmail, setValidEmail] = React.useState(false);
   const [password, setPassword] = React.useState("");
   // const [nameEmpty, setNameEmpty] = React.useState(true);
   // const [emailEmpty, setEmailEmpty] = React.useState(true);
   // const [passwordEmpty, setPasswordEmpty] = React.useState(true);
+
+  React.useEffect(() => {
+    checkEmptyFields();
+  }, [name, email, password]); // Trigger the effect when ctx.users changes
+
   const ctx = React.useContext(UserContext);
 
   // if empty field detected, return false
@@ -37,10 +43,24 @@ function CreateAccount() {
   }
 
   function checkEmptyFields() {
-    if ((name == false) & (email == false) & (password == false)) {
-      return;
+    if ((name == false) | (validEmail == false) | (password == false)) {
+      document.getElementById("submit").disabled = true;
+    } else {
+      document.getElementById("submit").disabled = false;
     }
   }
+
+  function validateEmail(e) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (e.currentTarget.value.match(mailformat)) {
+      document.getElementById("emailWarning").style.display = "none";
+      setValidEmail(true);
+    } else {
+      document.getElementById("emailWarning").style.display = "block";
+      setValidEmail(false);
+    }
+  }
+
   return (
     <Card
       bgcolor="primary"
@@ -72,8 +92,10 @@ function CreateAccount() {
               value={email}
               onChange={(e) => {
                 setEmail(e.currentTarget.value);
+                validateEmail(e);
               }}
             />
+            <p id="emailWarning">Please input a valid email address</p>
             <br />
             Password
             <br />
@@ -89,6 +111,7 @@ function CreateAccount() {
             />
             <br />
             <button
+              id="submit"
               type="submit"
               className="btn btn-light"
               onClick={handleCreate}
