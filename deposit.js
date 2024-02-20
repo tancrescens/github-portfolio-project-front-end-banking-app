@@ -5,40 +5,36 @@ function Deposit() {
         txtcolor="black"
         header="Deposit Form"
         title="Deposit"
-        text='Please enter how much you would like to deposit and click "Submit"'
+        text=""
         body={
           <form>
+            <br />
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">
-                Balance
-              </label>
-              <p type="email" class="form-control" id="exampleInputEmail1">
-                Balance Amount state-context
-              </p>
+              <label class="form-label">Balance:</label>
+              <p>Balance Amount state-context</p>
             </div>
+            {/*  */}
+            <br />
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">
-                Password
+              <label for="depositInput1" class="form-label">
+                Deposit Amount:
               </label>
               <input
-                type="password"
+                type="numbers"
                 class="form-control"
-                id="exampleInputPassword1"
+                id="depositInput1"
+                aria-describedby="depositHelp"
               />
+              <div id="depositHelp" class="form-text">
+                Please input <strong>numbers</strong> with
+                <strong> 2 decimals</strong> only e.g 50.10
+              </div>
             </div>
-            <div class="mb-3 form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck1"
-              />
-              <label class="form-check-label" for="exampleCheck1">
-                Check me out
-              </label>
-            </div>
+            {/*  */}
             <button type="submit" class="btn btn-primary">
               Submit
             </button>
+            {/*  */}
           </form>
         }
       ></Card>
