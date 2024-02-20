@@ -8,6 +8,7 @@ function Deposit() {
     const input = document.getElementById("depositInput1");
     ctx.users[0].balance += Number(input.value);
     changeBalanceState(ctx.users[0].balance);
+    document.getElementById("depositInput1").value = "";
     alert("Deposit success!");
     return;
   }

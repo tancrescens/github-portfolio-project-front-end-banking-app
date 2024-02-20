@@ -9,6 +9,7 @@ function Withdraw() {
     const input = document.getElementById("withdrawInput1");
     ctx.users[0].balance += -Number(input.value);
     changeBalanceState(ctx.users[0].balance);
+    document.getElementById("withdrawInput1").value = "";
     alert("Withdrawal success!");
     return;
   }
