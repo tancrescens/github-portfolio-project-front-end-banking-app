@@ -1,4 +1,14 @@
 function Deposit() {
+  const ctx = React.useContext(UserContext);
+  const [balance, changeBalance] = React.useState(ctx.users[0].balance);
+
+  function updateBalance() {
+    const input = document.getElementById("depositInput1");
+    ctx.users[0].balance += Number(input.value);
+    changeBalance(ctx.users[0].balance);
+    return;
+  }
+
   return (
     <>
       <Card
@@ -11,7 +21,7 @@ function Deposit() {
             <br />
             <div class="mb-3">
               <label class="form-label">Balance:</label>
-              <p>Balance Amount state-context</p>
+              <p>{balance}</p>
             </div>
             {/*  */}
             <br />
@@ -31,7 +41,11 @@ function Deposit() {
               </div>
             </div>
             {/*  */}
-            <button type="submit" class="btn btn-primary">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              onClick={updateBalance}
+            >
               Submit
             </button>
             {/*  */}
