@@ -30,3 +30,20 @@ function Card(props) {
     </div>
   );
 }
+
+function MyTable() {
+  return (
+    <table className="table">
+      <thead>
+        <tr>
+          <th>head</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>body</td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}

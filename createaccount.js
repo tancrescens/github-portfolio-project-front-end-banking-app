@@ -4,6 +4,9 @@ function CreateAccount() {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  // const [nameEmpty, setNameEmpty] = React.useState(true);
+  // const [emailEmpty, setEmailEmpty] = React.useState(true);
+  // const [passwordEmpty, setPasswordEmpty] = React.useState(true);
   const ctx = React.useContext(UserContext);
 
   // if empty field detected, return false
@@ -33,6 +36,11 @@ function CreateAccount() {
     setShow(true);
   }
 
+  function checkEmptyFields() {
+    if ((name == false) & (email == false) & (password == false)) {
+      return;
+    }
+  }
   return (
     <Card
       bgcolor="primary"
@@ -49,18 +57,22 @@ function CreateAccount() {
               id="name"
               placeholder="Enter name"
               value={name}
-              onChange={(e) => setName(e.currentTarget.value)}
+              onChange={(e) => {
+                setName(e.currentTarget.value);
+              }}
             />
             <br />
             Email address
             <br />
             <input
-              type="input"
+              type="email"
               className="form-control"
               id="email"
               placeholder="Enter email"
               value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
+              onChange={(e) => {
+                setEmail(e.currentTarget.value);
+              }}
             />
             <br />
             Password
@@ -71,7 +83,9 @@ function CreateAccount() {
               id="password"
               placeholder="Enter password"
               value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
+              onChange={(e) => {
+                setPassword(e.currentTarget.value);
+              }}
             />
             <br />
             <button
@@ -79,7 +93,7 @@ function CreateAccount() {
               className="btn btn-light"
               onClick={handleCreate}
             >
-              Create Account
+              Submit
             </button>
           </>
         ) : (
