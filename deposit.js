@@ -1,11 +1,13 @@
 function Deposit() {
   const ctx = React.useContext(UserContext);
-  const [balance, changeBalance] = React.useState(ctx.users[0].balance);
+  const [balanceState, changeBalanceState] = React.useState(
+    ctx.users[0].balance
+  );
 
   function updateBalance() {
     const input = document.getElementById("depositInput1");
     ctx.users[0].balance += Number(input.value);
-    changeBalance(ctx.users[0].balance);
+    changeBalanceState(ctx.users[0].balance);
     return;
   }
 
@@ -21,7 +23,7 @@ function Deposit() {
             <br />
             <div class="mb-3">
               <label class="form-label">Balance:</label>
-              <p>{balance}</p>
+              <p>{balanceState}</p>
             </div>
             {/*  */}
             <br />
