@@ -23,31 +23,30 @@ function Deposit() {
         body={
           <form>
             <br />
-            <div class="mb-3">
-              <label class="form-label">Balance:</label>
+            <div className="mb-3">
+              <label className="form-label">Balance:</label>
               <p>{balanceState}</p>
             </div>
             {/*  */}
             <br />
-            <div class="mb-3">
-              <label for="depositInput1" class="form-label">
+            <div className="mb-3">
+              <label for="depositInput1" className="form-label">
                 Deposit Amount:
               </label>
               <input
                 type="numbers"
-                class="form-control"
+                className="form-control"
                 id="depositInput1"
                 aria-describedby="depositHelp"
               />
-              <div id="depositHelp" class="form-text">
-                Please input <strong>numbers</strong> with
-                <strong> 2 decimals</strong> only e.g 50.10
+              <div id="depositHelp" className="form-text">
+                Please input <strong>positive numbers</strong> only e.g 50
               </div>
             </div>
             {/*  */}
             <button
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
               onClick={updateBalance}
             >
               Submit
