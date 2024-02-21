@@ -1,32 +1,16 @@
 function Withdraw() {
   const ctx = React.useContext(UserContext);
   const [balanceState, setBalanceState] = React.useState(ctx.users[0].balance);
-  console.log(`balanceState: ${balanceState}`);
+  const [inputEmpty, setInputEmpty] = React.useState(true);
 
-  // function updateBalance() {
-  //   console.log("button activated");
-  //   const input = document.getElementById("withdrawInput1");
+  React.useEffect(() => {
+    document.getElementById("submit").disabled = true;
+  }, [inputEmpty]);
 
-  //   if (
-  //     (0 >= input.value > ctx.users[0].balance) |
-  //     (input.value === String(NaN))
-  //   ) {
-  //     input.value = "";
-  //     alert("transaction failed");
-  //     return;
-  //   }
-
-  //   ctx.users[0].balance += -Number(input.value);
-  //   setBalanceState(ctx.users[0].balance);
-  //   document.getElementById("withdrawInput1").value = "";
-  //   alert("Withdrawal success!");
-  //   return;
-  // }
-  function updateBalance() {
-    console.log("button activated");
+  async function updateBalance() {
     const input = document.getElementById("withdrawInput1");
 
-    // Check if the input is a valid positive number with up to 2 decimal places
+    // Check if the input is a valid positive number
     if (
       input.value.trim() === "" ||
       isNaN(Number(input.value)) ||
@@ -35,6 +19,8 @@ function Withdraw() {
       !/^\d+(\.\d{1,2})?$/.test(input.value)
     ) {
       input.value = "";
+      await setInputEmpty(true);
+
       alert(
         "Invalid input. Please enter a positive number that doesn't exceed your stated balance"
       );
@@ -44,19 +30,20 @@ function Withdraw() {
     ctx.users[0].balance -= Number(input.value);
     setBalanceState(ctx.users[0].balance);
     input.value = "";
+    await setInputEmpty(true);
     alert("Withdrawal success!");
     return;
   }
 
-  function emptyInputCheck(e) {
+  async function emptyInputCheck(e) {
     let inputValue = e.currentTarget.value;
-    const disabled = document.querySelector(".disabled");
 
-    if (!inputValue) {
-      if (disabled.hasAttribute("disabled"))
-        disabled.removeAttribute("disabled");
+    if ((inputValue == undefined) | (inputValue == 0)) {
+      await setInputEmpty(true);
+      document.getElementById("submit").disabled = true;
     } else {
-      disabled.setAttribute("disabled", true);
+      await setInputEmpty(false);
+      document.getElementById("submit").disabled = false;
     }
   }
 
@@ -89,7 +76,7 @@ function Withdraw() {
                   e.currentTarget.value = Math.abs(e.currentTarget.value);
                 }}
                 onChange={(e) => {
-                  // emptyInputCheck(e);
+                  emptyInputCheck(e);
                 }}
               />
               <div id="withdrawHelp" className="form-text">

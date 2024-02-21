@@ -1,16 +1,35 @@
 function Deposit() {
   const ctx = React.useContext(UserContext);
-  const [balanceState, changeBalanceState] = React.useState(
-    ctx.users[0].balance
-  );
+  const [balanceState, setBalanceState] = React.useState(ctx.users[0].balance);
+  const [inputEmpty, setInputEmpty] = React.useState(true);
 
-  function updateBalance() {
+  React.useEffect(() => {
+    document.getElementById("submit").disabled = true;
+  }, [inputEmpty]);
+
+  async function updateBalance() {
     const input = document.getElementById("depositInput1");
+
     ctx.users[0].balance += Number(input.value);
-    changeBalanceState(ctx.users[0].balance);
+
+    setBalanceState(ctx.users[0].balance);
     document.getElementById("depositInput1").value = "";
+    await setInputEmpty(true);
+
     alert("Deposit success!");
     return;
+  }
+
+  async function emptyInputCheck(e) {
+    let inputValue = e.currentTarget.value;
+
+    if ((inputValue == undefined) | (inputValue == 0)) {
+      await setInputEmpty(true);
+      document.getElementById("submit").disabled = true;
+    } else {
+      await setInputEmpty(false);
+      document.getElementById("submit").disabled = false;
+    }
   }
 
   return (
@@ -34,10 +53,12 @@ function Deposit() {
                 Deposit Amount:
               </label>
               <input
-                type="numbers"
                 className="form-control"
                 id="depositInput1"
                 aria-describedby="depositHelp"
+                onChange={(e) => {
+                  emptyInputCheck(e);
+                }}
               />
               <div id="depositHelp" className="form-text">
                 Please input <strong>positive numbers</strong> only e.g 50
@@ -48,6 +69,7 @@ function Deposit() {
               type="submit"
               className="btn btn-primary"
               onClick={updateBalance}
+              id="submit"
             >
               Submit
             </button>
