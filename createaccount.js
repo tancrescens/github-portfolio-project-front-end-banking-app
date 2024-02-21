@@ -116,7 +116,7 @@ function CreateAccount() {
             <button
               id="submit"
               type="submit"
-              className="btn btn-light"
+              className="btn btn-primary"
               onClick={handleCreate}
             >
               Submit
@@ -125,7 +125,11 @@ function CreateAccount() {
         ) : (
           <>
             <h5>Success</h5>
-            <button type="submit" className="btn btn-light" onClick={clearForm}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={clearForm}
+            >
               Add another account
             </button>
           </>
