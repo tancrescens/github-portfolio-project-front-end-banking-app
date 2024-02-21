@@ -10,6 +10,23 @@ function Deposit() {
   async function updateBalance() {
     const input = document.getElementById("depositInput1");
 
+    // Check input for 1.empty, 2.non-number, 3.input<=0, 4.2 decimals & below
+    // if is above, reject input
+    if (
+      input.value.trim() === "" ||
+      isNaN(Number(input.value)) ||
+      Number(input.value) <= 0 ||
+      !/^\d+(\.\d{1,2})?$/.test(input.value)
+    ) {
+      input.value = "";
+      await setInputEmpty(true);
+
+      alert(
+        `Invalid input.\n Please enter a positive number that has lesser than 2 decimal places`
+      );
+      return;
+    }
+    // accepted input
     ctx.users[0].balance += Number(input.value);
 
     setBalanceState(ctx.users[0].balance);
@@ -56,6 +73,9 @@ function Deposit() {
                 className="form-control"
                 id="depositInput1"
                 aria-describedby="depositHelp"
+                onInput={(e) => {
+                  e.currentTarget.value = Math.abs(e.currentTarget.value);
+                }}
                 onChange={(e) => {
                   emptyInputCheck(e);
                 }}

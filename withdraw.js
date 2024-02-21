@@ -10,7 +10,8 @@ function Withdraw() {
   async function updateBalance() {
     const input = document.getElementById("withdrawInput1");
 
-    // Check if the input is a valid positive number
+    // Check input for 1.empty, 2.non-number, 3.input<=0, 4.input > balance, 5.2 decimals & below
+    // if is above, reject input
     if (
       input.value.trim() === "" ||
       isNaN(Number(input.value)) ||
@@ -22,11 +23,12 @@ function Withdraw() {
       await setInputEmpty(true);
 
       alert(
-        "Invalid input. Please enter a positive number that doesn't exceed your stated balance"
+        `Invalid input.\nPlease enter a positive number that doesn't exceed your stated balance\nKindly ensure there are only 2 decimal places or less.`
       );
       return;
     }
 
+    // accepted input
     ctx.users[0].balance -= Number(input.value);
     setBalanceState(ctx.users[0].balance);
     input.value = "";
